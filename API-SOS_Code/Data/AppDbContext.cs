@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using API_SOS_Code.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_SOS_Code.Data
 {
     public class AppDbContext : IdentityDbContext
     {
+        public DbSet<Dish> Dishes { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
+        
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -21,6 +26,14 @@ namespace API_SOS_Code.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Dish>()
+                .HasMany(d => d.Ingredients)
+                .WithMany(i => i.Dishes);
+
+            builder.Entity<Ingredient>()
+                .HasMany(i => i.Dishes)
+                .WithMany(d => d.Ingredients);
         }
     }
 }
