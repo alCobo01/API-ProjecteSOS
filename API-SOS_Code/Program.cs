@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -21,30 +22,30 @@ namespace API_SOS_Code
                 options.UseSqlServer(connectionString);
             });
 
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            builder.Services.AddIdentityCore<IdentityUser>(options =>
             {
-                // Configuració de contrasenyes
+                // Password configuration
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = true;
 
-                // Configuració del correu electrònic
+                // Email configuration
                 options.User.RequireUniqueEmail = true;
 
-                // Configuració de lockout (bloqueig d’usuari)
+                // Lockout configuration
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
-                // Configuració del login
+                // Login configuration
                 options.SignIn.RequireConfirmedEmail = false;
             })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            //Configuració del token i validacions
+            // JWT token configuration
             var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 
             builder.Services.AddAuthentication(options =>
@@ -88,29 +89,23 @@ namespace API_SOS_Code
                 });
                 opt.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    {
-                        new OpenApiSecurityScheme
                         {
-                            Reference = new OpenApiReference
+                            new OpenApiSecurityScheme
                             {
-                                Type=ReferenceType.SecurityScheme,
-                                Id="Bearer"
-                            }
-                        },
-                        Array.Empty<string>()
-                    }
+                                Reference = new OpenApiReference
+                                {
+                                    Type=ReferenceType.SecurityScheme,
+                                    Id="Bearer"
+                                }
+                            },
+                            Array.Empty<string>()
+                        }
                 });
             });
 
             // ========================
             var app = builder.Build();
             // ========================
-
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                await Tools.RoleTools.CrearRolsInicials(services);
-            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
