@@ -1,4 +1,5 @@
-﻿using API_SOS_Code.Models;
+﻿using API_SOS_Code.Controllers;
+using API_SOS_Code.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,8 @@ namespace API_SOS_Code.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Seed();
 
             builder.Entity<Dish>()
                 .HasMany(d => d.Ingredients)

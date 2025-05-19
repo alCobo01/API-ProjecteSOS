@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API_SOS_Code.Migrations
 {
     /// <inheritdoc />
-    public partial class Firstmigration : Migration
+    public partial class Initialseeding : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -206,6 +206,11 @@ namespace API_SOS_Code.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "2", 0, "16df9172-907f-4d70-8b78-188aff7964a3", null, false, false, null, null, null, "AQAAAAIAAYagAAAAEOS7WlWvOnI1LzqpwlC2jel9+yE2OBzJmmMth/5fyc8fGXVLd+Xi7Cadm1ewYtYufw==", null, false, "b36c88d9-a671-479e-91d9-9b653fb67b8f", false, "TicketUser" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
