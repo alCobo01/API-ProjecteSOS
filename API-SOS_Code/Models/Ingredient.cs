@@ -10,6 +10,5 @@ namespace API_SOS_Code.Models
         public int Id { get; set; }
         public required string Name { get; set; }
         public DateTime ExpirationDate { get; set; }
-        public List<Dish> Dishes { get; set; } = new List<Dish>();  
     }
 }

@@ -1,6 +1,4 @@
-﻿using API_SOS_Code.Models;
-
-namespace API_SOS_Code.DTOs
+﻿namespace API_SOS_Code.DTOs
 {
     public class GetIngredientDTO
     {

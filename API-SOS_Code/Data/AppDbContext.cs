@@ -26,16 +26,7 @@ namespace API_SOS_Code.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
             builder.Seed();
-
-            builder.Entity<Dish>()
-                .HasMany(d => d.Ingredients)
-                .WithMany(i => i.Dishes);
-
-            builder.Entity<Ingredient>()
-                .HasMany(i => i.Dishes)
-                .WithMany(d => d.Ingredients);
         }
     }
 }

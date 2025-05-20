@@ -15,44 +15,28 @@ namespace API_SOS_Code.Controllers
 
         public IngredientController(AppDbContext context) { _context = context; }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ingredient>>> GetAll()
         {
             var ingredients = await _context.Ingredients
-                .Include(i => i.Dishes)
                 .ToListAsync();
 
             if (ingredients.Count == 0) return NotFound("No ingredients found!");
 
-            // Map the ingredients to DTOs to avoid infinitive recursivity exception
-            var ingredientDTOs = ingredients.Select(i => new GetIngredientDTO
-            {
-                Id = i.Id,
-                Name = i.Name,
-                ExpirationDate = i.ExpirationDate,
-                DishesName = i.Dishes.Select(d => d.Name).ToList()
-            }).ToList();
-
-            return Ok(ingredientDTOs);
+            return Ok(ingredients);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Ingredient>> GetById(int id)
         {
             var ingredient = await _context.Ingredients
-                .Include(i => i.Dishes)
                 .FirstOrDefaultAsync(i => i.Id == id);
+
             if (ingredient == null) return NotFound($"Ingredient {id} not found!");
 
-            var ingredientDTO = new GetIngredientDTO
-            {
-                Id = ingredient.Id,
-                Name = ingredient.Name,
-                ExpirationDate = ingredient.ExpirationDate,
-                DishesName = ingredient.Dishes.Select(d => d.Name).ToList()
-            };
-
-            return Ok(ingredientDTO);
+            return Ok(ingredient);
         }
 
         [Authorize(Roles = "Admin")]
@@ -65,7 +49,6 @@ namespace API_SOS_Code.Controllers
 
                 var ingredient = new Ingredient
                 {
-                    Id = ingredientDTO.Id,
                     Name = ingredientDTO.Name,
                     ExpirationDate = ingredientDTO.ExpirationDate
                 };
