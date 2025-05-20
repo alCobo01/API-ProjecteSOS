@@ -11,7 +11,7 @@ namespace API_SOS_Code
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -107,6 +107,12 @@ namespace API_SOS_Code
             var app = builder.Build();
             // ========================
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                await Tools.RoleTools.CreateInitialRoles(services);
+            }
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -120,7 +126,7 @@ namespace API_SOS_Code
             app.UseAuthorization();
 
             app.MapControllers();
-
+            app.MapGet("/", () => "Welcome to RestaurantApi. Visit /swagger for API documentation in development environment or use API endpoints from /api.");
             app.Run();
         }
     }
