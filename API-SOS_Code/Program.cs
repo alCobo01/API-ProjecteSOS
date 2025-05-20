@@ -22,7 +22,7 @@ namespace API_SOS_Code
                 options.UseSqlServer(connectionString);
             });
 
-            builder.Services.AddIdentityCore<IdentityUser>(options =>
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 // Password configuration
                 options.Password.RequireDigit = true;
