@@ -1,5 +1,4 @@
-﻿using API_SOS_Code.Controllers;
-using API_SOS_Code.Models;
+﻿using API_SOS_Code.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
