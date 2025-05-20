@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace API_SOS_Code.Controllers
+namespace API_SOS_Code.Data
 {
     public static class ModelBuilderExtensions
     {
