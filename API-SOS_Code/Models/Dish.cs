@@ -9,6 +9,8 @@ namespace API_SOS_Code.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public required string Name { get; set; }
-        public List<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
+        public required string Description { get; set; }
+        public required string ImageUrl { get; set; }
+        public List<string> IngredientsName { get; set; } = new List<string>();
     }
 }
