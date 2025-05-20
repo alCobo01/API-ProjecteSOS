@@ -1,11 +1,13 @@
-﻿namespace API_SOS_Code.DTOs
+﻿using API_SOS_Code.Models;
+
+namespace API_SOS_Code.DTOs
 {
-    public class GetDishDTO
+    public class GetMenuDishDTO
     {
         public int Id { get; set; }
         public required string Name { get; set; }
         public required string Description { get; set; }
         public required string ImageUrl { get; set; }
-        public List<string> IngredientsName { get; set; } = new List<string>();
+        public List<Ingredient> Ingredients { get; set; } = new();
     }
 }
