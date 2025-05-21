@@ -44,6 +44,7 @@ namespace API_SOS_Code.Controllers
                 if (packages == null) return BadRequest("Invalid JSON format.");
 
                 var ingredients = new List<Ingredient>();
+                var ingredientsName = _context.IngredientsName.ToList();
 
                 foreach (var dish in packages)
                 {
@@ -58,6 +59,16 @@ namespace API_SOS_Code.Controllers
                             Name = dish.Content.Name,
                             ExpirationDate = expirationDate
                         });
+
+                        if (ingredientsName.All(i => i.Name != dish.Content.Name))
+                        {
+                            var newIngredientName = new IngredientsName
+                            {
+                                Name = dish.Content.Name
+                            };
+                            ingredientsName.Add(newIngredientName);
+                            _context.IngredientsName.Add(newIngredientName);  
+                        }
                     }
                 }
 
