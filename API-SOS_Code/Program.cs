@@ -1,4 +1,4 @@
-﻿using API_SOS_Code.Data;
+using API_SOS_Code.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Security.Claims;
 
 namespace API_SOS_Code
 {
@@ -67,7 +68,8 @@ namespace API_SOS_Code
                         ClockSkew = TimeSpan.Zero,
 
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"])),
+                        RoleClaimType = ClaimTypes.Role
                     };
                 });
 
@@ -126,7 +128,7 @@ namespace API_SOS_Code
             app.UseAuthorization();
 
             app.MapControllers();
-            app.MapGet("/", () => "Welcome to RestaurantApi. Visit /swagger for API documentation in development environment or use API endpoints from /api.");
+            app.MapGet("/", () => "Welcome to RestaurantApi! Visit /swagger for API documentation in development environment or use API endpoints from /api.");
             app.Run();
         }
     }
