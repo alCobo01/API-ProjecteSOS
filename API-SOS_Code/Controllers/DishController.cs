@@ -1,5 +1,5 @@
 ﻿using API_SOS_Code.Data;
-using API_SOS_Code.DTOs;
+using API_SOS_Code.DTOs.Dishes;
 using API_SOS_Code.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -46,6 +46,7 @@ namespace API_SOS_Code.Controllers
                     Name = insertDishDTO.Name,
                     ImageUrl = insertDishDTO.ImageUrl,
                     Description = insertDishDTO.Description,
+                    Price = insertDishDTO.Price,
                     IngredientsName = insertDishDTO.IngredientsName
                 };
 
@@ -86,6 +87,9 @@ namespace API_SOS_Code.Controllers
 
                 dish.Name = dishDTO.Name;
                 dish.ImageUrl = dishDTO.ImageUrl;
+                dish.Description = dishDTO.Description;
+                dish.Price = dishDTO.Price;
+                dish.IngredientsName = dishDTO.IngredientsName;
 
                 await _context.SaveChangesAsync();
                 return Ok(dish);
