@@ -3,7 +3,7 @@
 The API-ProjecteSOS provides a RESTful service to manage dishes, ingredients, and menus for a restaurant application. It supports user registration and login, role-based access control (Admin, User), JSON data import, and dynamic menu generation based on available ingredients.
 
 ## Technologies
-- ASP.NET Core Web API (C# .NET 7)
+- ASP.NET Core Web API (C# .NET 9)
 - Entity Framework Core
 - Microsoft SQL Server
 - ASP.NET Identity for user management
