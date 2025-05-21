@@ -1,4 +1,4 @@
-﻿namespace API_SOS_Code.DTOs
+﻿namespace API_SOS_Code.DTOs.Dishes
 {
     public class InsertDishDTO
     {

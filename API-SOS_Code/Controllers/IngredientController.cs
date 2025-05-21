@@ -1,5 +1,5 @@
 ﻿using API_SOS_Code.Data;
-using API_SOS_Code.DTOs;
+using API_SOS_Code.DTOs.Ingredients;
 using API_SOS_Code.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

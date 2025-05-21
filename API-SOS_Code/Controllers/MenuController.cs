@@ -1,5 +1,5 @@
 ﻿using API_SOS_Code.Data;
-using API_SOS_Code.DTOs;
+using API_SOS_Code.DTOs.Dishes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
