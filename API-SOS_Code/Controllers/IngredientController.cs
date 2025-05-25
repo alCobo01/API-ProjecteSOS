@@ -65,12 +65,15 @@ namespace API_SOS_Code.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Ingredient>> Delete(int id)
         {
             try
             {
                 var ingredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == id);
+                
+                if (ingredient == null) return NotFound($"Ingredient {id} not found!");
+
                 _context.Ingredients.Remove(ingredient);
                 await _context.SaveChangesAsync();
                 return Ok(ingredient);
