@@ -61,12 +61,15 @@ namespace API_SOS_Code.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Dish>> Delete(int id)
         {
             try
             {
                 var dish = await _context.Dishes.FirstOrDefaultAsync(d => d.Id == id);
+                
+                if (dish == null) return NotFound($"Dish {id} not found!");
+
                 _context.Dishes.Remove(dish);
                 await _context.SaveChangesAsync();
                 return Ok(dish);
@@ -84,6 +87,8 @@ namespace API_SOS_Code.Controllers
             try
             {
                 var dish = await _context.Dishes.FirstOrDefaultAsync(g => g.Id == id);
+
+                if (dish == null) return NotFound($"Dish {id} not found!");
 
                 dish.Name = dishDTO.Name;
                 dish.ImageUrl = dishDTO.ImageUrl;

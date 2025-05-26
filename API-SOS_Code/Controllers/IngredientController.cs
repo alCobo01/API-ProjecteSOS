@@ -52,8 +52,19 @@ namespace API_SOS_Code.Controllers
                     Name = ingredientDTO.Name,
                     ExpirationDate = ingredientDTO.ExpirationDate
                 };
-
                 _context.Ingredients.Add(ingredient);
+
+                // Check if the ingredient name already exists
+                var ingredientsName = await _context.IngredientsName.ToListAsync();
+                if (ingredientsName.All(i => i.Name != ingredient.Name))
+                {
+                    var newIngredientName = new IngredientsName
+                    {
+                        Name = ingredient.Name
+                    };
+                    _context.IngredientsName.Add(newIngredientName);
+                }
+
                 await _context.SaveChangesAsync();
 
                 return CreatedAtAction(nameof(GetById), new { id = ingredient.Id } , ingredient);
@@ -91,6 +102,8 @@ namespace API_SOS_Code.Controllers
             try
             {
                 var ingredient = await _context.Ingredients.FirstOrDefaultAsync(g => g.Id == id);
+
+                if (ingredient == null) return NotFound($"Ingredient {id} not found!");
 
                 ingredient.Name = ingredientDTO.Name;
                 ingredient.ExpirationDate = ingredientDTO.ExpirationDate;
