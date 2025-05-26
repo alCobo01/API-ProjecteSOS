@@ -88,10 +88,12 @@ namespace API_SOS_Code.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Ingredient>> Delete(int id)
         {
+            if (id <= 0) return BadRequest("Invalid ingredient ID!");
+
             try
             {
                 var ingredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == id);
-                
+
                 if (ingredient == null) return NotFound($"Ingredient {id} not found!");
 
                 _context.Ingredients.Remove(ingredient);
@@ -101,6 +103,36 @@ namespace API_SOS_Code.Controllers
             catch (DbUpdateException)
             {
                 return BadRequest($"An error ocurred while deleting the ingredient with id {id}");
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete]
+        public async Task<ActionResult<IEnumerable<Ingredient>>> DeleteBatch([FromBody] IEnumerable<int> ids)
+        {
+            if (ids == null || !ids.Any()) return BadRequest("No ingredient IDs provided for deletion!");
+
+            try
+            {
+                var ingredients = new List<Ingredient>();
+
+                foreach (var ingredientId in ids)
+                {
+                    var ingredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == ingredientId);
+                    if (ingredient != null)
+                    {
+                        ingredients.Add(ingredient);
+                    }
+                }
+
+                ingredients.ForEach(ingredient => _context.Ingredients.Remove(ingredient));
+
+                await _context.SaveChangesAsync();
+                return Ok(ingredients);
+            }
+            catch (DbUpdateException)
+            {
+                return BadRequest($"An error ocurred while deleting the ingredient with id {ids}");
             }
         }
 
