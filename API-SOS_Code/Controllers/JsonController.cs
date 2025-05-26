@@ -62,7 +62,7 @@ namespace API_SOS_Code.Controllers
 
                         if (ingredientsName.All(i => i.Name != dish.Content.Name))
                         {
-                            var newIngredientName = new IngredientsName
+                            var newIngredientName = new IngredientName
                             {
                                 Name = dish.Content.Name
                             };
