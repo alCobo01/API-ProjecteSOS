@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API_SOS_Code.Models
 {
-    public class IngredientsName
+    public class IngredientName
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

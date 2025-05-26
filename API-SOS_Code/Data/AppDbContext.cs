@@ -8,7 +8,7 @@ namespace API_SOS_Code.Data
     {
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
-        public DbSet<IngredientsName> IngredientsName { get; set; }
+        public DbSet<IngredientName> IngredientsName { get; set; }
 
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
