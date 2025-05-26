@@ -64,7 +64,7 @@ namespace API_SOS_Code.Controllers
             {
                 if (ingredientsName.All(i => i.Name != ingredient.Name))
                 {
-                    var newIngredientName = new IngredientsName
+                    var newIngredientName = new IngredientName
                     {
                         Name = ingredient.Name
                     };
