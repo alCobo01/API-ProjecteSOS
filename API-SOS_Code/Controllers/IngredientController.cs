@@ -138,7 +138,7 @@ namespace API_SOS_Code.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Ingredient>> Update(int id, InsertIngredientDTO ingredientDTO)
+        public async Task<ActionResult<Ingredient>> Update(int id, UpdateIngredientDTO ingredientDTO)
         {
             try
             {
