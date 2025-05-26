@@ -27,6 +27,7 @@ namespace API_SOS_Code.Controllers
                 ImageUrl = d.ImageUrl,
                 Description = d.Description,
                 Price = d.Price,
+                IngredientsName = d.IngredientsName,
                 Ingredients = d.IngredientsName
                     .Select(ingredientName =>
                         ingredients
