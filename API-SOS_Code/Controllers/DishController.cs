@@ -33,6 +33,15 @@ namespace API_SOS_Code.Controllers
             return Ok(dish);
         }
 
+        [Authorize]
+        [HttpGet("name/{name}")]
+        public async Task<ActionResult<Dish>> GetByName(string name)
+        {
+            var dish = await _context.Dishes.FirstOrDefaultAsync(d => d.Name == name);
+            if (dish == null) return NotFound($"Dish {name} not found!");
+            return Ok(dish);
+        }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Dish>> Add(InsertDishDTO insertDishDTO)
