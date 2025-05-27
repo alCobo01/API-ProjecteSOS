@@ -9,6 +9,7 @@ namespace API_SOS_Code.DTOs.Dishes
         public required string Description { get; set; }
         public required string ImageUrl { get; set; }
         public double Price { get; set; }
+        public List<string> IngredientsName { get; set; } = new();
         public List<Ingredient> Ingredients { get; set; } = new();
     }
 }

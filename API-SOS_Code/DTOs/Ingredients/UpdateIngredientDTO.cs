@@ -1,6 +1,6 @@
 ﻿namespace API_SOS_Code.DTOs.Ingredients
 {
-    public class InsertIngredientDTO
+    public class UpdateIngredientDTO
     {
         public required string Name { get; set; }
         public int Quantity { get; set; }   

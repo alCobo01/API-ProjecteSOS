@@ -16,9 +16,10 @@ namespace API_SOS_Code.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<IngredientsName>>> GetAll()
+        public async Task<ActionResult<IEnumerable<string>>> GetAll()
         {
-            var ingredients = await _context.IngredientsName
+            List<string> ingredients = await _context.IngredientsName
+                .Select(i => i.Name)
                 .ToListAsync();
 
             if (ingredients.Count == 0) return NotFound("No ingredients name found!");
